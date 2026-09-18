@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: blackstories
+    runtime: python
+    plan: starter
+    buildCommand: bash ./build.sh
+    startCommand: bash ./start.sh
+    healthCheckPath: /health/
+    disk:
+      name: blackstories-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.13
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "0"
+      - key: SERVE_MEDIA
+        value: "1"
+      - key: RENDER_FREE_MODE
+        value: "0"
+      - key: DATA_DIR
+        value: /opt/render/project/src/data
+      - key: SQLITE_PATH
+        value: /opt/render/project/src/data/db.sqlite3
+      - key: MEDIA_ROOT
+        value: /opt/render/project/src/data/media
+      - key: WEB_CONCURRENCY
+        value: "2"

@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Casos sombrios para jogar presencialmente. Um mestre conhece a verdade; os jogadores precisam reconstruí-la."
+    >
+
+    <meta name="theme-color" content="#08090b">
+
+    <title>
+        {% block title %}Black Stories{% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/premium.css' %}?v=20260918"
+    >
+
+    <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+
+    <script
+        defer
+        src="{% static 'js/premium.js' %}?v=20260918"
+    ></script>
+</head>
+
+<body>
+
+    <div class="page-texture"></div>
+
+    <header class="site-header">
+
+        <a
+            href="{% url 'stories:index' %}"
+            class="brand"
+        >
+            <span class="brand-symbol" aria-hidden="true">B</span>
+
+            <span class="brand-copy">
+                <span class="brand-main">black stories</span>
+                <span class="brand-side">enigmas para noites sem resposta</span>
+            </span>
+        </a>
+
+        <div class="header-actions">
+            <span class="brand-mark">
+                arquivos confidenciais
+            </span>
+
+            {% if request.user.is_staff %}
+                <a
+                    href="{% url 'stories:create' %}"
+                    class="header-add-link"
+                >
+                    Novo caso
+                </a>
+            {% endif %}
+        </div>
+
+    </header>
+
+    <main class="main-shell">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <footer class="site-footer">
+        <span>Black Stories</span>
+        <p>Histórias fictícias para partidas presenciais. Conteúdo com temas de suspense e morte.</p>
+    </footer>
+
+</body>
+
+</html>

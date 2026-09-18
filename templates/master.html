@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Guia do mestre | {{ story.title }}{% endblock %}
+
+{% block content %}
+<section class="master-premium-page">
+    <div class="master-premium-top">
+        <div>
+            <span class="master-premium-badge">
+                somente para o mestre
+            </span>
+
+            <h1 class="master-premium-title">
+                {{ story.title }}
+            </h1>
+        </div>
+
+        <a
+            href="{% url 'stories:detail' story.id %}"
+            class="master-premium-back"
+        >
+            &larr; Voltar ao enigma
+        </a>
+    </div>
+
+    <div class="master-premium-layout">
+        <aside class="master-media-stack" aria-label="Imagens do caso">
+            {% if story.image %}
+                <figure class="master-premium-image-card">
+                    <img
+                        src="{{ story.image.url }}"
+                        alt="{{ story.title }}"
+                    >
+
+                    <figcaption>Evidência apresentada aos jogadores</figcaption>
+                </figure>
+            {% endif %}
+
+            {% if story.resolution_image %}
+                <figure class="master-premium-image-card master-solution-image">
+                    <img
+                        src="{{ story.resolution_image.url }}"
+                        alt="Solucao de {{ story.title }}"
+                    >
+
+                    <figcaption>Imagem da solução</figcaption>
+                </figure>
+            {% endif %}
+        </aside>
+
+        <div class="master-premium-content">
+            <div class="master-premium-card">
+                <span class="master-premium-label">
+                    leitura de abertura
+                </span>
+
+                <p>
+                    {{ story.description|linebreaksbr }}
+                </p>
+            </div>
+
+            <div class="master-premium-card master-premium-answer">
+                <span class="master-premium-label">
+                    a verdade completa
+                </span>
+
+                <p>
+                    {{ story.answer|linebreaksbr }}
+                </p>
+            </div>
+
+            <div class="master-cue-board" aria-label="Respostas rápidas">
+                <span>sim</span>
+                <span>não</span>
+                <span>irrelevante</span>
+                <span>reformule</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

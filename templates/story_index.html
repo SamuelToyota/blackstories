@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}Black Stories | Arquivos de casos{% endblock %}
+
+{% block content %}
+<section class="index-container case-library" data-case-library>
+    {% if stories %}
+        <div class="library-hero">
+            <div class="library-copy">
+                <span class="section-label">
+                    uma verdade. muitas perguntas.
+                </span>
+
+                <h1>
+                    Toda história esconde o que realmente aconteceu.
+                </h1>
+
+                <p>
+                    O mestre lê o enigma e conhece a solução. Os jogadores investigam, fazem perguntas e tentam reconstruir a história completa.
+                </p>
+
+                <div class="ritual-steps" aria-label="Como jogar">
+                    <div><strong>01</strong><span>Escolha um caso</span></div>
+                    <div><strong>02</strong><span>Leia em voz alta</span></div>
+                    <div><strong>03</strong><span>Conduza a investigação</span></div>
+                </div>
+            </div>
+
+            <div class="library-panel">
+                <span class="panel-eyebrow">arquivo da noite</span>
+
+                <div class="library-stat">
+                    <strong>{{ stories|length }}</strong>
+                    <span>casos disponíveis</span>
+                </div>
+
+                <div class="library-stat">
+                    <strong data-visible-count>{{ stories|length }}</strong>
+                    <span>na seleção atual</span>
+                </div>
+
+                <button class="random-case-btn" type="button" data-random-case>
+                    <span aria-hidden="true">✦</span>
+                    Escolher por mim
+                </button>
+
+                {% if request.user.is_staff %}
+                    <a
+                        href="{% url 'stories:create' %}"
+                        class="add-case-btn"
+                    >
+                        Adicionar história
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="library-toolbar" role="search">
+            <label class="search-field" for="case-search">
+                <span class="visually-hidden">Buscar um caso</span>
+
+                <span aria-hidden="true">⌕</span>
+
+                <input
+                    id="case-search"
+                    type="search"
+                    placeholder="Buscar por título ou trecho do enigma"
+                    autocomplete="off"
+                    data-case-search
+                >
+            </label>
+
+            <div class="view-toggle" aria-label="Modo de visualizacao">
+                <button class="is-active" type="button" data-view-mode="grid">
+                    Grade
+                </button>
+
+                <button type="button" data-view-mode="compact">
+                    Compacto
+                </button>
+            </div>
+        </div>
+
+        <div class="stories-grid premium-grid" data-case-grid>
+            {% for story in stories %}
+                <a
+                    href="{% url 'stories:detail' story.id %}"
+                    class="story-card-link premium-case"
+                    data-case-card
+                    data-search="{{ story.title|lower }} {{ story.description|lower }}"
+                >
+                    <article class="story-card-index">
+                        <div class="story-card-image">
+                            <img
+                                src="{{ story.image.url }}"
+                                alt="{{ story.title }}"
+                                loading="lazy"
+                            >
+                        </div>
+
+                        <div class="story-card-info">
+                            <span class="case-number">
+                                arquivo {{ story.id|stringformat:"03d" }}
+                            </span>
+
+                            <h3>{{ story.title }}</h3>
+
+                            <p class="story-preview">
+                                {{ story.description|truncatewords:18 }}
+                            </p>
+
+                            <span class="story-link-text">
+                                Investigar caso <span aria-hidden="true">→</span>
+                            </span>
+                        </div>
+                    </article>
+                </a>
+            {% endfor %}
+        </div>
+
+        <div class="empty-state is-filter-empty" data-filter-empty hidden>
+            <h3>Nenhum caso encontrado</h3>
+            <p>Tente outra palavra do título ou do enigma.</p>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h3>Nenhuma história cadastrada</h3>
+            <p>Entre como administrador para criar o primeiro caso.</p>
+
+            {% if request.user.is_staff %}
+                <a
+                    href="{% url 'stories:create' %}"
+                    class="add-case-btn empty-add"
+                >
+                    Adicionar história
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

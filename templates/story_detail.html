@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ story.title }} | Black Stories{% endblock %}
+
+{% block content %}
+<section class="detail-container premium-detail" data-story-session data-story-id="{{ story.id }}">
+    <nav class="detail-actions" aria-label="Navegação do caso">
+        <a href="{% url 'stories:index' %}" class="back-button">
+            <span aria-hidden="true">&larr;</span>
+            Todos os casos
+        </a>
+
+        <a href="{% url 'stories:master' story.id %}" class="master-link">
+            Abrir guia do mestre
+        </a>
+    </nav>
+
+    <article class="story-card detail-card premium-case-file">
+        <div class="case-dossier">
+            <div class="story-image-panel">
+                <div class="image-frame case-photo" data-image-frame>
+                    <img
+                        id="story-image-{{ story.id }}"
+                        src="{{ story.image.url }}"
+                        data-original="{{ story.image.url }}"
+                        {% if story.resolution_image %}
+                            data-resolution="{{ story.resolution_image.url }}"
+                        {% else %}
+                            data-resolution="{{ story.image.url }}"
+                        {% endif %}
+                        alt="{{ story.title }}"
+                    >
+
+                    <span class="photo-stamp">
+                        evidência {{ story.id|stringformat:"03d" }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="story-text case-briefing">
+                <span class="section-label">
+                    leia o enigma em voz alta
+                </span>
+
+                <h1 class="story-title">
+                    {{ story.title }}
+                </h1>
+
+                <p class="story-description">
+                    {{ story.description }}
+                </p>
+
+                <div class="master-instruction">
+                    <span aria-hidden="true">✦</span>
+                    <p>O mestre responde apenas <strong>sim</strong>, <strong>não</strong> ou <strong>irrelevante</strong> até que a história seja reconstruída.</p>
+                </div>
+
+                <div class="session-tools" aria-label="Ferramentas da partida">
+                    <div class="session-meter">
+                        <span>Tempo de investigação</span>
+                        <strong data-session-timer>00:00</strong>
+
+                        <div class="meter-actions">
+                            <button type="button" data-timer-toggle>
+                                Iniciar
+                            </button>
+
+                            <button type="button" data-timer-reset>
+                                Zerar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <label class="notes-panel">
+                    <span>Anotações do mestre</span>
+
+                    <textarea
+                        rows="4"
+                        placeholder="Pistas liberadas, teorias dos jogadores..."
+                        data-session-notes
+                    ></textarea>
+                </label>
+
+                <div class="reveal-strip">
+                    <button
+                        class="reveal-btn"
+                        type="button"
+                        data-url="{% url 'stories:reveal' story.id %}"
+                        data-target="answer-{{ story.id }}"
+                    >
+                        Revelar a verdade
+                    </button>
+
+                    <button class="ghost-btn" type="button" data-reset-case hidden>
+                        Ocultar solução
+                    </button>
+                </div>
+
+                <div
+                    class="answer-container"
+                    id="answer-{{ story.id }}"
+                    hidden
+                >
+                    <span class="answer-label">
+                        o que realmente aconteceu
+                    </span>
+
+                    <p class="answer-text"></p>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+{% endblock %}

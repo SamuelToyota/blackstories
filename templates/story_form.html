@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}Novo caso | Black Stories{% endblock %}
+
+{% block content %}
+<section class="story-form-page" data-story-form>
+    <nav class="detail-actions" aria-label="Navegacao">
+        <a href="{% url 'stories:index' %}" class="back-button">
+            <span aria-hidden="true">&larr;</span>
+            Arquivos
+        </a>
+    </nav>
+
+    <div class="form-hero">
+        <span class="section-label">
+            novo arquivo confidencial
+        </span>
+
+        <h1>
+            Adicionar história
+        </h1>
+
+        <p>
+            Escreva um enigma curto para leitura em voz alta e deixe a solução completa pronta para o mestre.
+        </p>
+    </div>
+
+    <form
+        method="post"
+        enctype="multipart/form-data"
+        class="story-form-card"
+        novalidate
+    >
+        {% csrf_token %}
+
+        {% if render_free_mode %}
+            <div class="free-mode-notice">
+                <strong>Modo gratuito do Render</strong>
+                <span>Histórias adicionadas aqui podem sumir quando o serviço reiniciar. Para armazenamento permanente, use banco e arquivos persistentes.</span>
+            </div>
+        {% endif %}
+
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <div class="case-form-grid">
+            <label class="form-field form-field-wide">
+                <span>{{ form.title.label }}</span>
+                {{ form.title }}
+                {{ form.title.errors }}
+            </label>
+
+            <label class="form-field form-field-wide">
+                <span>{{ form.description.label }}</span>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </label>
+
+            <label class="upload-card">
+                <span class="upload-title">
+                    {{ form.image.label }}
+                </span>
+
+                <span class="upload-copy">
+                    {{ form.image.help_text }}
+                </span>
+
+                <span class="upload-action">
+                    Escolher imagem
+                </span>
+
+                {{ form.image }}
+
+                <img
+                    src=""
+                    alt=""
+                    data-file-preview="image"
+                    hidden
+                >
+
+                <span class="upload-name" data-file-name="image">
+                    Nenhum arquivo selecionado
+                </span>
+
+                {{ form.image.errors }}
+            </label>
+
+            <label class="upload-card">
+                <span class="upload-title">
+                    {{ form.resolution_image.label }}
+                </span>
+
+                <span class="upload-copy">
+                    {{ form.resolution_image.help_text }}
+                </span>
+
+                <span class="upload-action">
+                    Escolher imagem
+                </span>
+
+                {{ form.resolution_image }}
+
+                <img
+                    src=""
+                    alt=""
+                    data-file-preview="resolution"
+                    hidden
+                >
+
+                <span class="upload-name" data-file-name="resolution">
+                    Nenhum arquivo selecionado
+                </span>
+
+                {{ form.resolution_image.errors }}
+            </label>
+
+            <label class="form-field form-field-wide">
+                <span>{{ form.answer.label }}</span>
+                {{ form.answer }}
+                {{ form.answer.errors }}
+            </label>
+        </div>
+
+        <div class="form-actions">
+            <a href="{% url 'stories:index' %}" class="ghost-btn">
+                Cancelar
+            </a>
+
+            <button class="save-story-btn" type="submit">
+                Salvar história
+            </button>
+        </div>
+    </form>
+</section>
+{% endblock %}
