@@ -16,6 +16,8 @@
     </nav>
 
     <article class="story-card detail-card premium-case-file">
+        <span class="detail-spine" aria-hidden="true">caso {{ story.id|stringformat:"03d" }}</span>
+
         <div class="case-dossier">
             <div class="story-image-panel">
                 <div class="image-frame case-photo" data-image-frame>
@@ -31,16 +33,12 @@
                         alt="{{ story.title }}"
                     >
 
-                    <span class="photo-stamp">
-                        evidência {{ story.id|stringformat:"03d" }}
-                    </span>
+                    <span class="photo-stamp">premissa</span>
                 </div>
             </div>
 
             <div class="story-text case-briefing">
-                <span class="section-label">
-                    leia o enigma em voz alta
-                </span>
+                <span class="section-label">leia apenas isto em voz alta</span>
 
                 <h1 class="story-title">
                     {{ story.title }}
@@ -51,8 +49,8 @@
                 </p>
 
                 <div class="master-instruction">
-                    <span aria-hidden="true">✦</span>
-                    <p>O mestre responde apenas <strong>sim</strong>, <strong>não</strong> ou <strong>irrelevante</strong> até que a história seja reconstruída.</p>
+                    <span aria-hidden="true">!</span>
+                    <p>O mestre responde apenas <strong>sim</strong>, <strong>não</strong> ou <strong>irrelevante</strong> até que a cadeia completa seja reconstruída.</p>
                 </div>
 
                 <div class="session-tools" aria-label="Ferramentas da partida">
@@ -71,16 +69,6 @@
                         </div>
                     </div>
                 </div>
-
-                <label class="notes-panel">
-                    <span>Anotações do mestre</span>
-
-                    <textarea
-                        rows="4"
-                        placeholder="Pistas liberadas, teorias dos jogadores..."
-                        data-session-notes
-                    ></textarea>
-                </label>
 
                 <div class="reveal-strip">
                     <button

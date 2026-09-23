@@ -6,42 +6,34 @@
 <section class="index-container case-library" data-case-library>
     {% if stories %}
         <div class="library-hero">
+            <div class="hero-splatter" aria-hidden="true"></div>
+
             <div class="library-copy">
-                <span class="section-label">
-                    uma verdade. muitas perguntas.
-                </span>
+                <span class="section-label">uma verdade. muitas perguntas.</span>
 
-                <h1>
-                    Toda história esconde o que realmente aconteceu.
-                </h1>
+                <h1><span>Histórias que</span><strong>começam no fim.</strong></h1>
 
-                <p>
-                    O mestre lê o enigma e conhece a solução. Os jogadores investigam, fazem perguntas e tentam reconstruir a história completa.
-                </p>
+                <p>O mestre conhece a cena inteira. Os jogadores recebem apenas o impossível e investigam fazendo perguntas de sim, não ou irrelevante.</p>
 
                 <div class="ritual-steps" aria-label="Como jogar">
-                    <div><strong>01</strong><span>Escolha um caso</span></div>
-                    <div><strong>02</strong><span>Leia em voz alta</span></div>
-                    <div><strong>03</strong><span>Conduza a investigação</span></div>
+                    <div><strong>01</strong><span>Escolha</span></div>
+                    <div><strong>02</strong><span>Leia</span></div>
+                    <div><strong>03</strong><span>Desvende</span></div>
                 </div>
             </div>
 
             <div class="library-panel">
-                <span class="panel-eyebrow">arquivo da noite</span>
+                <span class="panel-eyebrow">baralho da noite</span>
 
                 <div class="library-stat">
                     <strong>{{ stories|length }}</strong>
-                    <span>casos disponíveis</span>
+                    <span>casos macabros</span>
                 </div>
 
-                <div class="library-stat">
-                    <strong data-visible-count>{{ stories|length }}</strong>
-                    <span>na seleção atual</span>
-                </div>
+                <span class="selection-count"><b data-visible-count>{{ stories|length }}</b> na seleção atual</span>
 
                 <button class="random-case-btn" type="button" data-random-case>
-                    <span aria-hidden="true">✦</span>
-                    Escolher por mim
+                    Sortear um caso <span aria-hidden="true">↗</span>
                 </button>
 
                 {% if request.user.is_staff %}
@@ -70,15 +62,7 @@
                 >
             </label>
 
-            <div class="view-toggle" aria-label="Modo de visualizacao">
-                <button class="is-active" type="button" data-view-mode="grid">
-                    Grade
-                </button>
-
-                <button type="button" data-view-mode="compact">
-                    Compacto
-                </button>
-            </div>
+            <span class="toolbar-note">a ordem muda a cada visita</span>
         </div>
 
         <div class="stories-grid premium-grid" data-case-grid>
@@ -90,6 +74,8 @@
                     data-search="{{ story.title|lower }} {{ story.description|lower }}"
                 >
                     <article class="story-card-index">
+                        <span class="card-spine" aria-hidden="true">{{ story.id|stringformat:"03d" }}</span>
+
                         <div class="story-card-image">
                             <img
                                 src="{{ story.image.url }}"
@@ -99,18 +85,16 @@
                         </div>
 
                         <div class="story-card-info">
-                            <span class="case-number">
-                                arquivo {{ story.id|stringformat:"03d" }}
-                            </span>
+                            <span class="case-number">caso {{ forloop.counter|stringformat:"02d" }}</span>
 
                             <h3>{{ story.title }}</h3>
 
                             <p class="story-preview">
-                                {{ story.description|truncatewords:18 }}
+                                {{ story.description|truncatewords:16 }}
                             </p>
 
                             <span class="story-link-text">
-                                Investigar caso <span aria-hidden="true">→</span>
+                                abrir arquivo <span aria-hidden="true">↗</span>
                             </span>
                         </div>
                     </article>

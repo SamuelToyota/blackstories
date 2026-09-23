@@ -32,6 +32,7 @@ class StoryViewsTests(TestCase):
         self.assertContains(response, self.story.description)
         self.assertNotContains(response, self.story.answer)
         self.assertNotContains(response, "Perguntas")
+        self.assertNotContains(response, "Anotações do mestre")
 
     def test_reveal_returns_only_requested_story_answer(self):
         response = self.client.get(

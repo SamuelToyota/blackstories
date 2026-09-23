@@ -42,8 +42,6 @@
         const empty = library.querySelector("[data-filter-empty]");
         const random = library.querySelector("[data-random-case]");
         const grid = library.querySelector("[data-case-grid]");
-        const viewButtons = Array.from(library.querySelectorAll("[data-view-mode]"));
-        const savedView = storageGet("blackstories:library:view", "grid");
 
         function visibleCards() {
             return cards.filter(function (card) {
@@ -102,31 +100,6 @@
             });
         }
 
-        viewButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                const mode = button.dataset.viewMode;
-
-                viewButtons.forEach(function (item) {
-                    item.classList.toggle("is-active", item === button);
-                });
-
-                if (grid) {
-                    grid.classList.toggle("is-compact", mode === "compact");
-                }
-
-                storageSet("blackstories:library:view", mode);
-            });
-        });
-
-        viewButtons.forEach(function (button) {
-            const isSelected = button.dataset.viewMode === savedView;
-            button.classList.toggle("is-active", isSelected);
-        });
-
-        if (grid) {
-            grid.classList.toggle("is-compact", savedView === "compact");
-        }
-
         updateFilter();
     }
 
@@ -142,7 +115,6 @@
         const timerDisplay = session.querySelector("[data-session-timer]");
         const timerToggle = session.querySelector("[data-timer-toggle]");
         const timerReset = session.querySelector("[data-timer-reset]");
-        const notes = session.querySelector("[data-session-notes]");
         const resetCase = session.querySelector("[data-reset-case]");
         const revealButton = session.querySelector(".reveal-btn");
         const answerContainer = revealButton
@@ -211,13 +183,6 @@
                 elapsed = 0;
                 storageSet(`${prefix}:elapsed`, "0");
                 renderTimer();
-            });
-        }
-
-        if (notes) {
-            notes.value = storageGet(`${prefix}:notes`, "");
-            notes.addEventListener("input", function () {
-                storageSet(`${prefix}:notes`, notes.value);
             });
         }
 
