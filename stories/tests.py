@@ -78,3 +78,27 @@ class StoryViewsTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, {"status": "ok"})
+
+    def test_curated_cases_include_cover_and_solution_images(self):
+        curated = Story.objects.filter(
+            title__in=[
+                "Maré Tardia",
+                "O Vazio Perfeito",
+                "Sem Tocar o Chão",
+                "O Primeiro Banquete",
+                "A Distância Imóvel",
+                "A Outra Metade",
+                "Cinzas sem Testemunha",
+                "A Companhia Ausente",
+                "A Queda Horizontal",
+                "O Mar Amarelo",
+                "A Pausa na Soleira",
+                "A Noite em Marcha",
+                "Depois do Silêncio",
+                "A Altura Perdida",
+            ],
+        )
+
+        self.assertEqual(curated.count(), 14)
+        self.assertFalse(curated.filter(image="").exists())
+        self.assertFalse(curated.filter(resolution_image="").exists())

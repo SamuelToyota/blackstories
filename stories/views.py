@@ -36,7 +36,7 @@ def story_index(request):
         "description",
         "image",
         "created_at",
-    ).order_by("-created_at")
+    ).order_by("?")
 
     return render(
         request,

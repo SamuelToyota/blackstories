@@ -4,7 +4,7 @@ Aplicação Django para partidas presenciais de enigmas sombrios. O mestre escol
 
 ## Recursos
 
-- Biblioteca com busca, sorteio e visualização em grade ou lista.
+- Biblioteca com 27 casos, busca, sorteio e embaralhamento automático.
 - Tela de investigação com cronômetro, notas locais e revelação da solução.
 - Guia completo do mestre com imagens e respostas rápidas.
 - Cadastro de novos casos restrito a usuários da equipe.
@@ -32,7 +32,7 @@ Abra `http://127.0.0.1:8000/`.
 
 ## Publicação
 
-O arquivo `render.yaml` configura o plano gratuito. Ele inicia com 13 casos a partir de `stories/seed.sqlite3`, que não contém usuários, senhas ou sessões.
+O arquivo `render.yaml` configura o plano gratuito. Ele inicia com 27 casos a partir de `stories/seed.sqlite3`, que não contém usuários, senhas ou sessões.
 
 Para criar um administrador no primeiro início, configure no Render:
 

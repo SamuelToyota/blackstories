@@ -13,4 +13,4 @@ O cadastro de histórias não fica disponível para visitantes. Para habilitá-l
 
 ## Limite do plano gratuito
 
-No modo gratuito, banco e uploads adicionados durante o uso não são permanentes. Depois de uma reinicialização ou nova publicação, o site volta aos 13 casos originais. Para persistir novos casos, use a configuração `render.persistent.yaml` ou serviços externos de banco e armazenamento.
+No modo gratuito, banco e uploads adicionados durante o uso não são permanentes. Depois de uma reinicialização ou nova publicação, o site volta aos 27 casos incluídos no projeto. Para persistir novos casos, use a configuração `render.persistent.yaml` ou serviços externos de banco e armazenamento.
